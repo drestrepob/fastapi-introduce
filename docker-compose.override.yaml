@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  app:
+    container_name: web
+    command: ["./scripts/dev-entrypoint.sh"]
+    ports:
+      - "8000:8000"
+    depends_on:
+      database:
+        condition: service_healthy
+    env_file:
+      - .env
+
+  database:
+    container_name: local-database
+    image: postgres:15.3-alpine
+    ports:
+      - "50000:5432"
+    environment:
+      POSTGRES_USER: ${DATABASE_USER:-postgres}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-postgres}
+      POSTGRES_DB: ${DATABASE_NAME:-postgres}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    healthcheck:
+        test: ["CMD", "pg_isready", "-U", "postgres"]
+        interval: 2s
+        timeout: 4s
+        retries: 3
+    volumes:
+      - ./.db_data:/var/lib/postgresql/data/pgdata

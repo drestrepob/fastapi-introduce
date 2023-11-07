@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "fastapi_introduce"
+version = "0.1.0"
+description = "FastAPI Introduce project using poetry and docker"
+authors = ["Daniel Restrepo <danielretrepo9725@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.100.0"
+sqlalchemy = "^2.0.20"
+alembic = "^1.12.0"
+uvicorn = "^0.23.2"
+asyncpg = "^0.28.0"
+python-decouple = "^3.8"
+greenlet = "^3.0.1"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.9.0"
+mypy = "^1.5.1"
+ruff = "^0.0.290"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

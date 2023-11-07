@@ -1,0 +1,17 @@
+version: "3.9"
+
+# BASE CONFIG: applies to all environments. It does not work alone
+
+x-common: &common
+  build:
+    context: .
+    dockerfile: Dockerfile
+  volumes:
+    - ./app:/service/app
+    - ./migrations:/service/migrations
+    - ./scripts:/service/scripts
+    - ./tests:/service/tests
+
+services:
+  app:
+    <<: *common
